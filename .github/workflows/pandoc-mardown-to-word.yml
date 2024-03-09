@@ -22,10 +22,8 @@ jobs:
         run: |
           pandoc -f markdown -t docx -o $OUTPUT_FILE_NAME --toc "./README.md" 
 
-          ls
-
       # output generated file to build artifacts
       - uses: actions/upload-artifact@v3
         with:
           name: Word Doc
-          path: "$OUTPUT_FILE_NAME"
+          path: "./$OUTPUT_FILE_NAME"
