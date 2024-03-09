@@ -22,6 +22,8 @@ jobs:
         run: |
           pandoc -f markdown -t docx -o $OUTPUT_FILE_NAME --toc "./README.md" 
 
+          ls
+
       # output generated file to build artifacts
       - uses: actions/upload-artifact@v3
         with:
