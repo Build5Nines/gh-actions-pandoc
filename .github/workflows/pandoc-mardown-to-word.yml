@@ -3,9 +3,9 @@ name: Generate Word Doc
 on:
   workflow_dispatch:
 
-variables:
-# define output file name variable to be used below
-- output-file-name: "gh-actions-pandoc-readme.docx"
+env:
+  # define output file name variable to be used below
+  OUTPUT_FILE_NAME: "gh-actions-pandoc-readme.docx"
 
 jobs:
   convert_via_pandoc:
@@ -22,7 +22,7 @@ jobs:
         run: |
           pandoc -f markdown \ # source format is markdown
             -t docx \ # output file format
-            -o "$(output-file-name)" \ # output file
+            -o "$OUTPUT_FILE_NAME" \ # output file
             --toc \ # include table of contents
             "./README.md" # source file
 
@@ -30,4 +30,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: Word Doc
-          path: "$(output-file-name)"
+          path: "$OUTPUT_FILE_NAME"
