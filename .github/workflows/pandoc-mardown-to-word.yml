@@ -20,14 +20,10 @@ jobs:
       # run pandoc to generate word doc from markdown
       - name: run pandoc
         run: |
-          pandoc -f markdown \
-            -t docx \ 
-            -o "$OUTPUT_FILE_NAME" \
-            --toc \ 
-            "./README.md" 
+          pandoc -f markdown -t docx -o $OUTPUT_FILE_NAME --toc "./README.md" 
 
       # output generated file to build artifacts
       - uses: actions/upload-artifact@v3
         with:
           name: Word Doc
-          path: "$OUTPUT_FILE_NAME"
+          path: $OUTPUT_FILE_NAME
