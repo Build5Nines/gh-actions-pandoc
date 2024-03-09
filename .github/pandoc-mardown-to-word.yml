@@ -1,0 +1,33 @@
+name: Generate Word Doc
+
+on:
+  workflow_dispatch:
+
+variables:
+# define output file name variable to be used below
+- output-file-name: "gh-actions-pandoc-readme.docx"
+
+jobs:
+  convert_via_pandoc:
+    runs-on: ubuntu-20.04
+    container: 
+      image: pandoc/latex:latest
+
+    steps:
+      # checkout repo contents
+      - uses: actions/checkout@v4
+
+      # run pandoc to generate word doc from markdown
+      - name: run pandoc
+        run: |
+          pandoc -f markdown \ # source format is markdown
+            -t docx \ # output file format
+            -o "$(output-file-name)" \ # output file
+            --toc \ # include table of contents
+            "./README.md" # source file
+
+      # output generated file to build artifacts
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Word Doc
+          path: "$(output-file-name)"
